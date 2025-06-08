@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -40,7 +39,6 @@ const icons = [
 ];
 
 export default function Home() {
-  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -54,15 +52,11 @@ export default function Home() {
       <AppBar
         position="relative"
         sx={{
-          bgcolor: "surfaceContainerHigh",
-          borderRadius: "12px",
-          mx: 2,
-          mt: 2,
-          mb: 4,
+          bgcolor: "royalblue",
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between", py: 1 }}>
-          <Typography component="div" sx={{ color: "primary.main" }}>
+          <Typography component="div" sx={{ color: "white" }}>
             {" "}
             MyPortfolio
           </Typography>
@@ -73,7 +67,7 @@ export default function Home() {
                 href={`#${id}`}
                 sx={{
                   textTransform: "none",
-                  color: "primary.main",
+                  color: "white",
                   borderRadius: "20px",
                   px: 3,
                   py: 1,
@@ -86,7 +80,10 @@ export default function Home() {
         </Toolbar>
       </AppBar>
 
-      <Container id="about" sx={{ py: { xs: 4, md: 8 }, flex: 1 }}>
+      <Container
+        id="about"
+        sx={{ borderColor: "gray", py: { xs: 4, md: 8 }, flex: 1 }}
+      >
         {" "}
         <motion.div
           initial="hidden"
@@ -111,15 +108,12 @@ export default function Home() {
               />
             </motion.div>
             <motion.div variants={itemVariants}>
-              <Typography
-                /*variant="displayLarge"*/ component="h1"
-                gutterBottom
-              >
-                <Box component="span" sx={{ color: "primary.main" }}>
+              <Typography component="h1" gutterBottom>
+                <Box component="span" sx={{ color: "black" }}>
                   Mykhailo
                 </Box>
                 <br />
-                <Box component="span" sx={{ color: "secondary.main" }}>
+                <Box component="span" sx={{ color: "gray" }}>
                   Web Developer
                 </Box>
               </Typography>
@@ -135,7 +129,7 @@ export default function Home() {
             }}
           >
             <motion.div variants={itemVariants}>
-              <Typography gutterBottom sx={{ color: "primary.main" }}>
+              <Typography gutterBottom sx={{ color: "black" }}>
                 {" "}
                 Web Developer
               </Typography>
@@ -144,7 +138,7 @@ export default function Home() {
             <motion.div variants={itemVariants}>
               <Typography
                 sx={{
-                  color: "onSurfaceVariant",
+                  color: "black",
                 }}
               >
                 {" "}
@@ -167,7 +161,7 @@ export default function Home() {
                 <Typography
                   sx={{
                     fontStyle: "italic",
-                    color: "onSurfaceVariant",
+                    color: "black",
                   }}
                 >
                   "Clean code is not just functional - it's communicative."
@@ -182,8 +176,8 @@ export default function Home() {
               variant="contained"
               href="#contact"
               sx={{
-                bgcolor: "primary.main",
-                color: "onPrimary",
+                bgcolor: "white",
+                color: "black",
                 borderRadius: "20px",
                 px: 6,
                 py: 1.5,
@@ -229,13 +223,14 @@ export default function Home() {
               >
                 <IconButton
                   sx={{
-                    bgcolor:
-                      theme.palette.mode === "dark" ? "grey.800" : "grey.200",
-                    color: theme.palette.text.primary,
+                    bgcolor: "grey.200",
+                    color: "black",
                     transition: "0.3s",
                     "&:hover": {
-                      bgcolor: theme.palette.primary.main,
-                      color: theme.palette.primary.contrastText,
+                      bgcolor: "royalblue",
+                      color: "white",
+                      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                      transform: "scale(1.2)",
                     },
                   }}
                 >
