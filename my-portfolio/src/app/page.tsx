@@ -103,7 +103,7 @@ export default function Home() {
                   mx: "auto",
                   mb: 4,
                   border: "3px solid",
-                  borderColor: "primary.container",
+                  borderColor: "black",
                 }}
               />
             </motion.div>
