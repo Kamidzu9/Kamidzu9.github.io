@@ -225,7 +225,7 @@ export default function Home() {
                   sx={{
                     bgcolor: "grey.200",
                     color: "black",
-                    transition: "0.3s",
+                    transition: "0.4s",
                     "&:hover": {
                       bgcolor: "royalblue",
                       color: "white",
