@@ -126,6 +126,8 @@ const education = [
   },
 ];
 
+const MotionGridItem = motion(Grid);
+
 export default function Home() {
   const [isAtTop, setIsAtTop] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -571,7 +573,12 @@ export default function Home() {
 
             <Grid container spacing={3}>
               {skills.map((skill, index) => (
-                <Grid component="div" item xs={6} sm={4} md={2} key={index}>
+                <MotionGridItem
+                  size={{ xs: 6, sm: 4, md: 2 }}
+                  key={index}
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.05 }}
+                >
                   <motion.div
                     variants={itemVariants}
                     whileHover={{ scale: 1.05 }}
@@ -614,7 +621,7 @@ export default function Home() {
                       </Typography>
                     </Paper>
                   </motion.div>
-                </Grid>
+                </MotionGridItem>
               ))}
             </Grid>
           </motion.div>
@@ -657,7 +664,7 @@ export default function Home() {
             </Box>
 
             <Grid container spacing={4}>
-              <Grid item xs={12} md={6}>
+              <MotionGridItem size={{ xs: 12, md: 6 }}>
                 <motion.div variants={itemVariants}>
                   <Typography
                     variant="h5"
@@ -731,9 +738,9 @@ export default function Home() {
                     </List>
                   </Paper>
                 </motion.div>
-              </Grid>
+              </MotionGridItem>
 
-              <Grid item xs={12} md={6}>
+              <MotionGridItem size={{ xs: 12, md: 6 }}>
                 <motion.div variants={itemVariants}>
                   <Typography
                     variant="h5"
@@ -800,7 +807,7 @@ export default function Home() {
                     </List>
                   </Paper>
                 </motion.div>
-              </Grid>
+              </MotionGridItem>
             </Grid>
           </motion.div>
         </Container>
@@ -918,7 +925,7 @@ export default function Home() {
               ))}
             </Grid> */}
             <Grid container justifyContent="center">
-              <Grid item xs={12} md={6}>
+              <MotionGridItem size={{ xs: 12, md: 6 }}>
                 <motion.div variants={itemVariants}>
                   <Paper
                     elevation={0}
@@ -950,7 +957,7 @@ export default function Home() {
                     </Typography>
                   </Paper>
                 </motion.div>
-              </Grid>
+              </MotionGridItem>
             </Grid>
           </motion.div>
         </Container>
@@ -995,7 +1002,7 @@ export default function Home() {
             </Box>
 
             <Grid container justifyContent="center" spacing={4}>
-              <Grid item xs={12} md={6}>
+              <MotionGridItem size={{ xs: 12, md: 6 }}>
                 <motion.div variants={itemVariants}>
                   <Paper
                     elevation={0}
@@ -1111,7 +1118,7 @@ export default function Home() {
                     </Box>
                   </Paper>
                 </motion.div>
-              </Grid>
+              </MotionGridItem>
 
               {/* <Grid item xs={12} md={6}>
                 <motion.div variants={itemVariants}>
