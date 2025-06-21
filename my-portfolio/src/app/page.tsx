@@ -571,7 +571,7 @@ export default function Home() {
 
             <Grid container spacing={3}>
               {skills.map((skill, index) => (
-                <Grid item xs={6} sm={4} md={2} key={index}>
+                <Grid component="div" item xs={6} sm={4} md={2} key={index}>
                   <motion.div
                     variants={itemVariants}
                     whileHover={{ scale: 1.05 }}
