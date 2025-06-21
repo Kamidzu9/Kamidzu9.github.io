@@ -482,7 +482,7 @@ export default function Home() {
 
                 <motion.div variants={itemVariants}>
                   <Typography
-                    variant="p"
+                    variant="body1"
                     sx={{
                       color: COLORS.darkText,
                       fontSize: "1.1rem",
@@ -513,7 +513,7 @@ export default function Home() {
                     }}
                   >
                     <Typography
-                      variant="p"
+                      variant="body1"
                       sx={{
                         fontStyle: "italic",
                         color: COLORS.darkText,
@@ -563,7 +563,7 @@ export default function Home() {
                     My Skills
                   </Box>
                 </Typography>
-                <Typography variant="p" sx={{ color: COLORS.darkText }}>
+                <Typography variant="body1" sx={{ color: COLORS.darkText }}>
                   Technologies and tools I work with
                 </Typography>
               </motion.div>
@@ -607,7 +607,7 @@ export default function Home() {
                         {skill.icon}
                       </Box>
                       <Typography
-                        variant="p"
+                        variant="body1"
                         sx={{ fontWeight: 500, color: COLORS.darkText }}
                       >
                         {skill.name}
@@ -701,14 +701,14 @@ export default function Home() {
                             secondary={
                               <>
                                 <Typography
-                                  variant="p"
+                                  variant="body1"
                                   sx={{ fontWeight: 500 }}
                                 >
                                   {exp.company}
                                 </Typography>
                                 <br />
                                 <Typography
-                                  variant="p"
+                                  variant="body2"
                                   sx={{
                                     color: COLORS.darkText,
                                     fontStyle: "italic",
@@ -718,7 +718,7 @@ export default function Home() {
                                 </Typography>
                                 <br />
                                 <Typography
-                                  variant="p"
+                                  variant="body1"
                                   sx={{ mt: 1, color: COLORS.darkText }}
                                 >
                                   {exp.description}
@@ -777,14 +777,14 @@ export default function Home() {
                             secondary={
                               <>
                                 <Typography
-                                  variant="p"
+                                  variant="body1"
                                   sx={{ fontWeight: 500 }}
                                 >
                                   {edu.institution}
                                 </Typography>
                                 <br />
                                 <Typography
-                                  variant="p"
+                                  variant="body2"
                                   sx={{
                                     color: COLORS.darkText,
                                     fontStyle: "italic",
@@ -839,7 +839,7 @@ export default function Home() {
                     My Projects
                   </Box>
                 </Typography>
-                <Typography variant="p" sx={{ color: COLORS.darkText }}>
+                <Typography variant="body1" sx={{ color: COLORS.darkText }}>
                   Some of my recent work
                 </Typography>
               </motion.div>
@@ -879,7 +879,7 @@ export default function Home() {
                         <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
                           Project {index + 1}
                         </Typography>
-                        <Typography variant="p" sx={{ color: COLORS.darkText, mb: 2 }}>
+                        <Typography variant="body1" sx={{ color: COLORS.darkText, mb: 2 }}>
                           A modern web application built with React and Next.js.
                         </Typography>
                         <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
@@ -988,7 +988,7 @@ export default function Home() {
                     Get In Touch
                   </Box>
                 </Typography>
-                <Typography variant="p" sx={{ color: COLORS.darkText }}>
+                <Typography variant="body1" sx={{ color: COLORS.darkText }}>
                   Have a project in mind? Let's collaborate!
                 </Typography>
               </motion.div>
@@ -1033,25 +1033,40 @@ export default function Home() {
                     </Typography>
 
                     <Box sx={{ mb: 3 }}>
-                      <Typography variant="p" sx={{ fontWeight: 500, mb: 1 }}>
+                      <Typography
+                        variant="body1"
+                        sx={{ fontWeight: 500, mb: 1 }}
+                      >
                         Email:
                       </Typography>
-                      <Typography variant="p" sx={{ color: COLORS.darkText }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: COLORS.darkText }}
+                      >
                         msolovey.job@gmail.com
                       </Typography>
                     </Box>
 
                     <Box sx={{ mb: 3 }}>
-                      <Typography variant="p" sx={{ fontWeight: 500, mb: 1 }}>
+                      <Typography
+                        variant="body1"
+                        sx={{ fontWeight: 500, mb: 1 }}
+                      >
                         Location:
                       </Typography>
-                      <Typography variant="p" sx={{ color: COLORS.darkText }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: COLORS.darkText }}
+                      >
                         Thueringen, Germany
                       </Typography>
                     </Box>
 
                     <Box>
-                      <Typography variant="p" sx={{ fontWeight: 500, mb: 2 }}>
+                      <Typography
+                        variant="body1"
+                        sx={{ fontWeight: 500, mb: 2 }}
+                      >
                         Connect with me:
                       </Typography>
                       <Box sx={{ display: "flex", gap: 2 }}>
@@ -1277,7 +1292,7 @@ export default function Home() {
               ))}
             </Box> */}
             <Typography
-              variant="p"
+              variant="body1"
               sx={{
                 textAlign: "center",
                 color: COLORS.darkText,
