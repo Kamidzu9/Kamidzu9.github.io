@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import { motion } from "framer-motion";
+import { motion, number } from "framer-motion";
 import {
   AppBar,
   Toolbar,
@@ -153,7 +153,7 @@ export default function Home() {
     };
   }, [mobileMenuOpen]);
 
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
