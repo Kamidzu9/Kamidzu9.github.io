@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import { motion, number } from "framer-motion";
+import { motion, number, Variants } from "framer-motion";
 import {
   AppBar,
   Toolbar,
@@ -61,14 +61,14 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       duration: 0.6,
-      ease: [0.4, 0, 0.2, 1],
+      ease: "easeInOut",
     },
   },
   hover: {
