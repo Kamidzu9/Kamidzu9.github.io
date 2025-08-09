@@ -617,7 +617,6 @@ const SkillCard: React.FC<{
 
   return (
     <motion.div
-      id="skills"
       layout
       initial={{ opacity: 0, y: 60, scale: 0.8 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -889,7 +888,10 @@ const SkillsSection: React.FC = () => {
   };
 
   return (
-    <section className="min-h-screen py-24 px-4 relative overflow-hidden">
+    <section
+      className="min-h-screen py-24 px-4 relative overflow-hidden"
+      id="skills"
+    >
       {/* Subtle Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03]">
         <div
