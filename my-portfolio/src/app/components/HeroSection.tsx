@@ -201,7 +201,7 @@ const HeroSection: React.FC = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-theme-primary"
+      className="relative min-h-screen flex items-center transition-colors duration-700 rjustify-center overflow-hidden pt-20 bg-theme-primary"
     >
       {/* Floating Tech Icons */}
       <div className="absolute inset-0 pointer-events-none">

@@ -57,7 +57,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="relative bg-theme-primary border-t border-theme-primary">
+    <footer className="relative bg-theme-primary border-t transition-colors duration-700 border-theme-primary">
       {/* Decorative Top Line */}
       <div className="w-full h-1 gradient-accent"></div>
 

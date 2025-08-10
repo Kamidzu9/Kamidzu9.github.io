@@ -100,7 +100,7 @@ const ContactSection: React.FC = () => {
   return (
     <section
       id="contact"
-      className="relative py-24 px-4 md:px-8 bg-theme-primary"
+      className="relative py-24 px-4 md:px-8 transition-colors duration-700 bg-theme-primary"
     >
       {/* Background Orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

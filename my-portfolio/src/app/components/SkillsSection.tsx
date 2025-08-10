@@ -636,7 +636,10 @@ const SkillsSection: React.FC = () => {
   const favoriteSkills = skills.filter((skill) => skill.isFavorite);
 
   return (
-    <section id="skills" className="py-20 bg-theme-primary">
+    <section
+      id="skills"
+      className="py-20 transition-colors duration-700 bg-theme-primary"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
