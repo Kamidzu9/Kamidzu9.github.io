@@ -1,32 +1,70 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
+/* Theme variables */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --orb1-x: 20%;
+  --orb1-y: 10%;
+  --orb2-x: 75%;
+  --orb2-y: 80%;
+  --orb3-x: 10%;
+  --orb3-y: 60%;
+  --orb4-x: 85%;
+  --orb4-y: 30%;
+  --orb5-x: 50%;
+  --orb5-y: 40%;
+  --orb6-x: 30%;
+  --orb6-y: 90%;
 }
 
-html,
+/* Light theme colors */
+html.light {
+  --bg-primary: 255 255 255;
+  --bg-secondary: 249 250 251;
+  --bg-accent: 99 102 241;
+  --text-primary: 17 24 39;
+  --text-secondary: 75 85 99;
+  --text-accent: 99 102 241;
+  --border-primary: 229 231 235;
+  --shadow-primary: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme colors */
+html.dark {
+  --bg-primary: 18 18 18;
+  --bg-secondary: 38 38 38;
+  --bg-accent: 79 70 229;
+  --text-primary: 255 255 255;
+  --text-secondary: 209 213 219;
+  --text-accent: 129 140 248;
+  --border-primary: 55 65 81;
+  --shadow-primary: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Black theme colors */
+html.black {
+  --bg-primary: 0 0 0;
+  --bg-secondary: 10 10 10;
+  --bg-accent: 50 50 50;
+  --text-primary: 204 204 204;
+  --text-secondary: 156 163 175;
+  --text-accent: 75 85 99;
+  --border-primary: 31 41 55;
+  --shadow-primary: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+/* Global background with animated orbs */
 body {
-  padding: 0;
-  margin: 0;
+  position: relative;
+  min-height: 100vh;
+  background: rgb(var(--bg-primary));
+  transition: background-color 0.3s ease;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   overflow-x: hidden;
-  /* Global background */
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    rgba(99, 102, 241, 0.08) 25%,
-    rgba(236, 72, 153, 0.06) 50%,
-    rgba(251, 146, 60, 0.04) 75%,
-    #ffffff 100%
-  );
-  background-attachment: fixed;
-  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
-/* Global animated orbs background */
 body::before {
   content: "";
   position: fixed;
@@ -34,172 +72,205 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  pointer-events: none;
   z-index: -1;
+  pointer-events: none;
   background: radial-gradient(
-      circle at 20% 20%,
+      circle at var(--orb1-x) var(--orb1-y),
       rgba(99, 102, 241, 0.15) 0%,
       transparent 50%
     ),
     radial-gradient(
-      circle at 80% 30%,
-      rgba(236, 72, 153, 0.12) 0%,
+      circle at var(--orb2-x) var(--orb2-y),
+      rgba(236, 72, 153, 0.1) 0%,
       transparent 50%
     ),
     radial-gradient(
-      circle at 40% 70%,
-      rgba(251, 146, 60, 0.1) 0%,
+      circle at var(--orb3-x) var(--orb3-y),
+      rgba(251, 146, 60, 0.08) 0%,
       transparent 50%
     ),
     radial-gradient(
-      circle at 90% 80%,
-      rgba(168, 85, 247, 0.08) 0%,
+      circle at var(--orb4-x) var(--orb4-y),
+      rgba(168, 85, 247, 0.12) 0%,
       transparent 50%
     ),
     radial-gradient(
-      circle at 10% 90%,
-      rgba(59, 130, 246, 0.09) 0%,
+      circle at var(--orb5-x) var(--orb5-y),
+      rgba(59, 130, 246, 0.1) 0%,
       transparent 50%
     ),
     radial-gradient(
-      circle at 70% 10%,
-      rgba(34, 197, 94, 0.07) 0%,
+      circle at var(--orb6-x) var(--orb6-y),
+      rgba(34, 197, 94, 0.08) 0%,
       transparent 50%
     );
-  animation: floatOrbs 20s ease-in-out infinite;
+  animation: moveOrbs 20s ease-in-out infinite;
 }
 
-/* Animation for floating orbs */
-@keyframes floatOrbs {
+/* Black theme - minimal orbs */
+html.black body::before {
+  background: radial-gradient(
+      circle at var(--orb1-x) var(--orb1-y),
+      rgba(50, 50, 50, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at var(--orb2-x) var(--orb2-y),
+      rgba(70, 70, 70, 0.03) 0%,
+      transparent 50%
+    );
+}
+
+@keyframes moveOrbs {
   0%,
   100% {
-    background: radial-gradient(
-        circle at 20% 20%,
-        rgba(99, 102, 241, 0.15) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 80% 30%,
-        rgba(236, 72, 153, 0.12) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 40% 70%,
-        rgba(251, 146, 60, 0.1) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 90% 80%,
-        rgba(168, 85, 247, 0.08) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 10% 90%,
-        rgba(59, 130, 246, 0.09) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 70% 10%,
-        rgba(34, 197, 94, 0.07) 0%,
-        transparent 50%
-      );
+    --orb1-x: 20%;
+    --orb1-y: 10%;
+    --orb2-x: 75%;
+    --orb2-y: 80%;
+    --orb3-x: 10%;
+    --orb3-y: 60%;
+    --orb4-x: 85%;
+    --orb4-y: 30%;
+    --orb5-x: 50%;
+    --orb5-y: 40%;
+    --orb6-x: 30%;
+    --orb6-y: 90%;
   }
   25% {
-    background: radial-gradient(
-        circle at 30% 40%,
-        rgba(99, 102, 241, 0.15) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 70% 50%,
-        rgba(236, 72, 153, 0.12) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 60% 20%,
-        rgba(251, 146, 60, 0.1) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 10% 60%,
-        rgba(168, 85, 247, 0.08) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 85% 15%,
-        rgba(59, 130, 246, 0.09) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 25% 85%,
-        rgba(34, 197, 94, 0.07) 0%,
-        transparent 50%
-      );
+    --orb1-x: 80%;
+    --orb1-y: 20%;
+    --orb2-x: 15%;
+    --orb2-y: 70%;
+    --orb3-x: 60%;
+    --orb3-y: 90%;
+    --orb4-x: 25%;
+    --orb4-y: 10%;
+    --orb5-x: 90%;
+    --orb5-y: 60%;
+    --orb6-x: 70%;
+    --orb6-y: 40%;
   }
   50% {
-    background: radial-gradient(
-        circle at 80% 60%,
-        rgba(99, 102, 241, 0.15) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 20% 40%,
-        rgba(236, 72, 153, 0.12) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 70% 80%,
-        rgba(251, 146, 60, 0.1) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 40% 20%,
-        rgba(168, 85, 247, 0.08) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 90% 70%,
-        rgba(59, 130, 246, 0.09) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 15% 30%,
-        rgba(34, 197, 94, 0.07) 0%,
-        transparent 50%
-      );
+    --orb1-x: 60%;
+    --orb1-y: 80%;
+    --orb2-x: 30%;
+    --orb2-y: 20%;
+    --orb3-x: 90%;
+    --orb3-y: 50%;
+    --orb4-x: 10%;
+    --orb4-y: 90%;
+    --orb5-x: 40%;
+    --orb5-y: 30%;
+    --orb6-x: 80%;
+    --orb6-y: 70%;
   }
   75% {
-    background: radial-gradient(
-        circle at 60% 80%,
-        rgba(99, 102, 241, 0.15) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 30% 20%,
-        rgba(236, 72, 153, 0.12) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 90% 40%,
-        rgba(251, 146, 60, 0.1) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 20% 70%,
-        rgba(168, 85, 247, 0.08) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 75% 25%,
-        rgba(59, 130, 246, 0.09) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 45% 90%,
-        rgba(34, 197, 94, 0.07) 0%,
-        transparent 50%
-      );
+    --orb1-x: 30%;
+    --orb1-y: 60%;
+    --orb2-x: 85%;
+    --orb2-y: 40%;
+    --orb3-x: 20%;
+    --orb3-y: 20%;
+    --orb4-x: 70%;
+    --orb4-y: 85%;
+    --orb5-x: 15%;
+    --orb5-y: 80%;
+    --orb6-x: 90%;
+    --orb6-y: 20%;
   }
+}
+
+/* Utility classes */
+.bg-theme-primary {
+  background-color: rgb(var(--bg-primary));
+}
+
+.bg-theme-secondary {
+  background-color: rgb(var(--bg-secondary));
+}
+
+.bg-theme-accent {
+  background-color: rgb(var(--bg-accent));
+}
+
+.text-theme-primary {
+  color: rgb(var(--text-primary));
+}
+
+.text-theme-secondary {
+  color: rgb(var(--text-secondary));
+}
+
+.text-theme-accent {
+  color: rgb(var(--text-accent));
+}
+
+.border-theme-primary {
+  border-color: rgb(var(--border-primary));
+}
+
+.border-3 {
+  border-width: 3px;
+}
+
+.shadow-theme-primary {
+  box-shadow: var(--shadow-primary);
+}
+
+.gradient-accent {
+  background: linear-gradient(
+    135deg,
+    rgb(var(--bg-accent)),
+    rgb(var(--text-accent)),
+    rgb(251 146 60)
+  );
+}
+
+.card-glass {
+  background-color: rgba(var(--bg-primary), 0.8);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(var(--border-primary), 0.2);
+  box-shadow: var(--shadow-primary);
+}
+
+.btn-primary {
+  background: linear-gradient(
+    135deg,
+    rgb(var(--bg-accent)),
+    rgb(var(--text-accent)),
+    rgb(251 146 60)
+  );
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-primary);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background-color: rgb(var(--bg-secondary));
+  border: 1px solid rgb(var(--border-primary));
+  color: rgb(var(--text-primary));
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-primary);
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: rgb(var(--bg-accent));
+  color: white;
+}
+
+.text-shadow-theme {
+  text-shadow: 0 2px 4px rgba(var(--shadow-primary), 0.5);
 }
 
 a {

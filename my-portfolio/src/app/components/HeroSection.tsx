@@ -30,37 +30,37 @@ const socials = [
   {
     name: "GitHub",
     href: "https://github.com/Kamidzu9",
-    icon: (
-      <Github className="w-6 h-6 text-gray-900 group-hover:text-white transition-colors duration-200" />
-    ),
+    icon: Github,
     color: "hover:bg-gray-800",
-    textColor: "hover:text-white",
   },
   {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/mykhailo-solovey-34345934a/",
-    icon: (
-      <Linkedin className="w-6 h-6 text-gray-900 group-hover:text-white transition-colors duration-200" />
-    ),
+    icon: Linkedin,
     color: "hover:bg-blue-600",
-    textColor: "hover:text-white",
   },
   {
     name: "Email",
     href: "mailto:msolovey.job@gmail.com",
-    icon: (
-      <Mail className="w-6 h-6 text-gray-900 group-hover:text-white transition-colors duration-200" />
-    ),
+    icon: Mail,
     color: "hover:bg-red-500",
-    textColor: "hover:text-white",
   },
 ];
 
 const skills = [
-  { name: "Frontend", icon: <Monitor className="w-8 h-8" />, level: 85 },
-  { name: "Backend", icon: <Server className="w-8 h-8" />, level: 80 },
-  { name: "Database", icon: <Database className="w-8 h-8" />, level: 75 },
-  { name: "DevOps", icon: <Container className="w-8 h-8" />, level: 70 },
+  { name: "Frontend", icon: Monitor, level: 85 },
+  { name: "Backend", icon: Server, level: 80 },
+  { name: "Database", icon: Database, level: 75 },
+  { name: "DevOps", icon: Container, level: 70 },
+];
+
+const techIcons = [
+  { icon: Code, delay: 0, position: "top-20 left-20" },
+  { icon: Rocket, delay: 2, position: "top-32 right-32" },
+  { icon: Cpu, delay: 4, position: "bottom-32 left-32" },
+  { icon: Zap, delay: 1, position: "bottom-20 right-20" },
+  { icon: Palette, delay: 3, position: "top-1/2 left-10" },
+  { icon: Flame, delay: 5, position: "top-1/2 right-10" },
 ];
 
 const FloatingElement: React.FC<{
@@ -70,7 +70,7 @@ const FloatingElement: React.FC<{
   className?: string;
 }> = ({ children, delay = 0, duration = 8, className = "" }) => (
   <motion.div
-    className={`absolute ${className}`}
+    className={`absolute opacity-30 text-theme-accent ${className}`}
     animate={{
       y: [0, -15, 0],
       x: [0, 10, 0],
@@ -127,7 +127,7 @@ const TypingEffect: React.FC<{ texts: string[]; className?: string }> = ({
       <motion.span
         animate={{ opacity: [1, 0, 1] }}
         transition={{ duration: 0.8, repeat: Infinity }}
-        className="text-purple-500"
+        className="text-theme-accent"
       >
         |
       </motion.span>
@@ -135,38 +135,11 @@ const TypingEffect: React.FC<{ texts: string[]; className?: string }> = ({
   );
 };
 
-// Color schemes for dark/light mode
-const colorSchemes = {
-  light: {
-    bg: "bg-gradient-to-br from-white via-blue-50 to-indigo-100",
-    text: "text-indigo-900",
-    subtext: "text-indigo-600",
-    accent: "bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-orange-400",
-    button:
-      "bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white hover:from-fuchsia-500 hover:to-orange-400",
-    card: "bg-white/80 backdrop-blur-sm",
-    icon: "text-indigo-500",
-  },
-  dark: {
-    bg: "bg-gradient-to-br from-neutral-900 via-indigo-950 to-purple-900",
-    text: "text-white",
-    subtext: "text-indigo-300",
-    accent: "bg-gradient-to-r from-indigo-400 via-fuchsia-500 to-orange-400",
-    button:
-      "bg-gradient-to-r from-indigo-400 to-fuchsia-500 text-white hover:from-fuchsia-500 hover:to-orange-400",
-    card: "bg-neutral-900/80 backdrop-blur-sm",
-    icon: "text-fuchsia-300",
-  },
-};
-
-const HeroSection: React.FC<{ scrollTo: (id: string) => void }> = ({
-  scrollTo,
-}) => {
+const HeroSection: React.FC = () => {
   const { theme } = useTheme();
-  const colors = colorSchemes[theme];
   const controls = useAnimation();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     controls.start("visible");
@@ -174,23 +147,22 @@ const HeroSection: React.FC<{ scrollTo: (id: string) => void }> = ({
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollIndicator(window.scrollY < 40);
+      const currentScrollY = window.scrollY;
+
+      // Hide scroll indicator when scrolling down past 100px
+      if (currentScrollY > 100) {
+        setShowScrollIndicator(false);
+      } else if (currentScrollY < lastScrollY && currentScrollY < 50) {
+        // Show again when scrolling back up to near top
+        setShowScrollIndicator(true);
+      }
+
+      setLastScrollY(currentScrollY);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [lastScrollY]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -217,78 +189,29 @@ const HeroSection: React.FC<{ scrollTo: (id: string) => void }> = ({
     },
   };
 
+  const scrollToNextSection = () => {
+    const skillsSection = document.getElementById("skills");
+    if (skillsSection) {
+      skillsSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-theme-primary"
     >
-      {/* Advanced Background Effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Animated Gradient Orbs */}
-        <motion.div
-          className="absolute w-96 h-96 bg-gradient-to-r from-purple-400/30 to-pink-400/30 rounded-full blur-3xl"
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          style={{
-            left: `${20 + mousePosition.x * 0.05}%`,
-            top: `${10 + mousePosition.y * 0.05}%`,
-          }}
-        />
-        <motion.div
-          className="absolute w-80 h-80 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl"
-          animate={{
-            x: [0, -80, 0],
-            y: [0, 60, 0],
-            scale: [1, 0.8, 1],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          style={{
-            right: `${15 + mousePosition.x * 0.03}%`,
-            bottom: `${20 + mousePosition.y * 0.03}%`,
-          }}
-        />
-
-        {/* Floating Elements */}
-        <FloatingElement
-          delay={0}
-          className="top-20 left-20 text-purple-500 opacity-30"
-        >
-          <Code className="w-12 h-12" />
-        </FloatingElement>
-        <FloatingElement
-          delay={2}
-          className="top-32 right-32 text-pink-500 opacity-30"
-        >
-          <Rocket className="w-10 h-10" />
-        </FloatingElement>
-        <FloatingElement
-          delay={4}
-          className="bottom-32 left-32 text-blue-500 opacity-30"
-        >
-          <Cpu className="w-10 h-10" />
-        </FloatingElement>
-        <FloatingElement
-          delay={1}
-          className="bottom-20 right-20 text-purple-600 opacity-30"
-        >
-          <Zap className="w-12 h-12" />
-        </FloatingElement>
-        <FloatingElement
-          delay={3}
-          className="top-1/2 left-10 text-pink-400 opacity-30"
-        >
-          <Palette className="w-8 h-8" />
-        </FloatingElement>
-        <FloatingElement
-          delay={5}
-          className="top-1/2 right-10 text-orange-400 opacity-30"
-        >
-          <Flame className="w-8 h-8" />
-        </FloatingElement>
+      {/* Floating Tech Icons */}
+      <div className="absolute inset-0 pointer-events-none">
+        {techIcons.map((item, index) => (
+          <FloatingElement
+            key={index}
+            delay={item.delay}
+            className={item.position}
+          >
+            <item.icon className="w-8 h-8 md:w-12 md:h-12" />
+          </FloatingElement>
+        ))}
       </div>
 
       {/* Main Content */}
@@ -301,16 +224,16 @@ const HeroSection: React.FC<{ scrollTo: (id: string) => void }> = ({
         {/* Avatar with Advanced Effects */}
         <motion.div
           variants={itemVariants}
-          className="relative mx-auto mb-8 w-48 h-48 group"
+          className="relative mx-auto mb-8 w-40 h-40 md:w-48 md:h-48 group"
         >
           <motion.div
-            className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 p-1"
+            className="absolute inset-0 rounded-full gradient-accent p-1"
             animate={{ rotate: 360 }}
             transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
           >
-            <div className="w-full h-full rounded-full bg-white p-2">
+            <div className="w-full h-full rounded-full bg-theme-primary p-2">
               <motion.div
-                className="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl"
+                className="relative w-full h-full rounded-full overflow-hidden bg-theme-secondary shadow-2xl border-2 border-theme-accent"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -319,14 +242,14 @@ const HeroSection: React.FC<{ scrollTo: (id: string) => void }> = ({
                   alt="Mykhailo Solovey"
                   className="w-full h-full object-cover rounded-full"
                 />
-                <motion.div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <motion.div className="absolute inset-0 gradient-accent opacity-0 group-hover:opacity-20 rounded-full transition-opacity duration-300" />
               </motion.div>
             </div>
           </motion.div>
 
           {/* Status Indicator */}
           <motion.div
-            className="absolute bottom-4 right-4 w-6 h-6 bg-green-400 rounded-full border-4 border-white shadow-lg"
+            className="absolute bottom-4 right-4 w-6 h-6 bg-green-400 rounded-full border-4 border-theme-primary shadow-lg"
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
@@ -336,16 +259,12 @@ const HeroSection: React.FC<{ scrollTo: (id: string) => void }> = ({
 
         {/* Name and Title */}
         <motion.div variants={itemVariants} className="mb-8">
-          <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-4">
-            <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
-              Mykhailo
-            </span>{" "}
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Solovey
-            </span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-4">
+            <span className="text-theme-primary">Mykhailo</span>{" "}
+            <span className="text-theme-primary">Solovey</span>
           </h1>
 
-          <div className="text-2xl md:text-3xl font-bold text-gray-700 mb-4 h-12">
+          <div className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 h-12">
             <TypingEffect
               texts={[
                 "Webentwickler in Ausbildung",
@@ -354,19 +273,21 @@ const HeroSection: React.FC<{ scrollTo: (id: string) => void }> = ({
                 "Full-Stack Enthusiast",
                 "UI/UX Lover",
               ]}
-              className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500"
+              className="text-theme-accent"
             />
           </div>
 
           <motion.p
-            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-theme-secondary max-w-3xl mx-auto leading-relaxed"
             variants={itemVariants}
           >
             Leidenschaftlicher Azubi mit 2 Jahren Erfahrung in modernen
             Webtechnologien. Spezialisiert auf{" "}
-            <span className="font-semibold text-purple-600">React</span>,
-            <span className="font-semibold text-blue-600"> PHP</span> und
-            <span className="font-semibold text-pink-600"> schönes Design</span>
+            <span className="font-semibold text-theme-accent">React</span>,{" "}
+            <span className="font-semibold text-theme-accent">PHP</span> und{" "}
+            <span className="font-semibold text-theme-accent">
+              schönes Design
+            </span>
             .
           </motion.p>
         </motion.div>
@@ -374,28 +295,32 @@ const HeroSection: React.FC<{ scrollTo: (id: string) => void }> = ({
         {/* Quick Stats */}
         <motion.div
           variants={itemVariants}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 max-w-4xl mx-auto"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12 max-w-4xl mx-auto"
         >
           {skills.map((skill, index) => (
             <motion.div
               key={skill.name}
-              className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/50 hover:shadow-xl transition-all duration-300"
+              className="card-glass p-4 md:p-6 rounded-xl shadow-theme-secondary hover:shadow-2xl transition-all duration-300 border border-theme-primary"
               whileHover={{ y: -3, scale: 1.02 }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 + index * 0.1 }}
             >
-              <div className="text-purple-600 mb-3">{skill.icon}</div>
-              <h3 className="font-bold text-gray-800 mb-2">{skill.name}</h3>
-              <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
+              <div className="text-theme-accent mb-3 flex justify-center">
+                <skill.icon className="w-6 h-6 md:w-8 md:h-8" />
+              </div>
+              <h3 className="font-bold text-theme-primary mb-2 text-sm md:text-base">
+                {skill.name}
+              </h3>
+              <div className="w-full bg-theme-primary rounded-full h-2 mb-2">
                 <motion.div
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                  className="gradient-accent h-2 rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${skill.level}%` }}
                   transition={{ delay: 1 + index * 0.2, duration: 1 }}
                 />
               </div>
-              <span className="text-sm text-gray-600 font-medium">
+              <span className="text-xs md:text-sm text-theme-secondary font-medium">
                 {skill.level}%
               </span>
             </motion.div>
@@ -405,21 +330,23 @@ const HeroSection: React.FC<{ scrollTo: (id: string) => void }> = ({
         {/* Location & Availability */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-wrap justify-center items-center gap-6 mb-12"
+          className="flex flex-wrap justify-center items-center gap-3 md:gap-6 mb-12"
         >
-          <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full shadow-md">
-            <MapPin className="w-5 h-5 text-purple-600" />
-            <span className="text-gray-700 font-medium">Deutschland</span>
+          <div className="flex items-center gap-2 card-glass px-3 md:px-4 py-2 rounded-full shadow-theme-secondary border border-theme-primary">
+            <MapPin className="w-4 h-4 md:w-5 md:h-5 text-theme-accent" />
+            <span className="text-theme-primary font-medium text-sm md:text-base">
+              Deutschland
+            </span>
           </div>
-          <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full shadow-md">
-            <Coffee className="w-5 h-5 text-pink-600" />
-            <span className="text-gray-700 font-medium">
+          <div className="flex items-center gap-2 card-glass px-3 md:px-4 py-2 rounded-full shadow-theme-secondary border border-theme-primary">
+            <Coffee className="w-4 h-4 md:w-5 md:h-5 text-theme-accent" />
+            <span className="text-theme-primary font-medium text-sm md:text-base">
               Verfügbar für Projekte
             </span>
           </div>
-          <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full shadow-md">
-            <Heart className="w-5 h-5 text-red-500" />
-            <span className="text-gray-700 font-medium">
+          <div className="flex items-center gap-2 card-glass px-3 md:px-4 py-2 rounded-full shadow-theme-secondary border border-theme-primary">
+            <Heart className="w-4 h-4 md:w-5 md:h-5 text-red-500" />
+            <span className="text-theme-primary font-medium text-sm md:text-base">
               Code mit Leidenschaft
             </span>
           </div>
@@ -436,23 +363,27 @@ const HeroSection: React.FC<{ scrollTo: (id: string) => void }> = ({
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group relative p-4 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/50 transition-all duration-300 text-gray-600 ${social.color} ${social.textColor}`}
-              whileHover={{ y: -2, scale: 1.02 }}
+              className={`
+                group relative p-3 md:p-4 card-glass rounded-xl shadow-theme-secondary 
+                border border-theme-primary transition-all duration-300 text-theme-primary 
+                hover:scale-110 hover:shadow-lg ${social.color}
+              `}
+              whileHover={{ y: -2 }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 + index * 0.1 }}
             >
-              {social.icon}
+              <social.icon className="w-5 h-5 md:w-6 md:h-6 group-hover:text-black dark:group-hover:text-white group-[.black]:group-hover:text-white transition-colors duration-200" />
 
               {/* Tooltip */}
               <motion.div
-                className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-theme-primary text-theme-secondary px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg border border-theme-primary"
                 initial={{ y: 10 }}
                 whileHover={{ y: 0 }}
               >
                 {social.name}
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800" />
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-theme-primary" />
               </motion.div>
             </motion.a>
           ))}
@@ -461,66 +392,99 @@ const HeroSection: React.FC<{ scrollTo: (id: string) => void }> = ({
         {/* Action Buttons */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-32"
         >
-          <motion.button
-            onClick={() => scrollTo("contact")}
-            className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
+          <motion.a
+            href="#contact"
+            className="btn-primary"
             whileHover={{ scale: 1.02, y: -1 }}
             whileTap={{ scale: 0.98 }}
           >
-            <motion.div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative z-10 flex items-center gap-2">
-              <Mail className="w-6 h-6" />
-              Kontakt aufnehmen
-            </span>
-          </motion.button>
+            <Mail className="w-5 h-5 md:w-6 md:h-6" />
+            Kontakt aufnehmen
+          </motion.a>
 
-          <motion.button
-            onClick={() => window.open("#", "_blank")}
-            className="group relative px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-700 border-2 border-purple-200 rounded-2xl font-bold text-lg hover:bg-purple-50 hover:border-purple-300 transition-all duration-300"
+          <motion.a
+            href="/resume.pdf"
+            download
+            className="btn-secondary"
             whileHover={{ scale: 1.02, y: -1 }}
             whileTap={{ scale: 0.98 }}
           >
-            <span className="flex items-center gap-2">
-              <Download className="w-6 h-6" />
-              Lebenslauf herunterladen
-            </span>
-          </motion.button>
+            <Download className="w-5 h-5 md:w-6 md:h-6" />
+            Lebenslauf herunterladen
+          </motion.a>
         </motion.div>
 
         {/* Scroll Indicator */}
         {showScrollIndicator && (
           <motion.div
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-4 left-1/2 transform -translate-x-1/2"
             initial={{ opacity: 0, y: 20 }}
-            animate={{
-              opacity: [0, 1, 1, 0],
-              y: [20, 0, 0, -10],
-            }}
-            transition={{
-              duration: 2.2,
-              times: [0, 0.3, 0.7, 1],
-              repeat: Infinity,
-              repeatDelay: 1.5,
-            }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.5 }}
           >
-            <motion.div
-              className="flex flex-col items-center text-gray-400/80 cursor-pointer"
-              onClick={() => scrollTo("skills")}
-              whileHover={{ scale: 1.1, y: -2 }}
-              animate={{ y: [0, 8, 0] }}
+            <motion.button
+              className="flex flex-col items-center text-theme-primary cursor-pointer group hover:text-theme-accent transition-colors duration-300 bg-theme-primary/20 backdrop-blur-md border border-theme-accent/30 rounded-2xl px-6 py-4 shadow-lg"
+              onClick={scrollToNextSection}
+              whileHover={{ scale: 1.05, y: -2 }}
+              animate={{ y: [0, 5, 0] }}
               transition={{
-                duration: 0.7,
+                duration: 2,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
             >
-              <ArrowDown className="w-8 h-8 text-purple-400" />
-            </motion.div>
+              <span className="text-sm md:text-base font-semibold mb-3 text-theme-primary">
+                Mehr erfahren
+              </span>
+              <div className="w-8 h-12 md:w-10 md:h-16 border-3 border-theme-accent rounded-full flex justify-center bg-theme-primary/10 backdrop-blur-sm">
+                <motion.div
+                  className="w-1.5 h-4 md:w-2 md:h-6 bg-theme-accent rounded-full mt-2 md:mt-3"
+                  animate={{ y: [0, 12, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+              </div>
+              <ArrowDown className="w-6 h-6 md:w-8 md:h-8 mt-3 group-hover:animate-bounce text-theme-accent" />
+            </motion.button>
           </motion.div>
         )}
       </motion.div>
+
+      {/* Floating Particles (static positions, no random movement on scroll) */}
+      {[
+        { left: "10%", top: "20%", delay: 0 },
+        { left: "25%", top: "40%", delay: 0.5 },
+        { left: "40%", top: "15%", delay: 1 },
+        { left: "60%", top: "30%", delay: 1.5 },
+        { left: "80%", top: "25%", delay: 0.2 },
+        { left: "15%", top: "60%", delay: 0.7 },
+        { left: "35%", top: "70%", delay: 1.2 },
+        { left: "55%", top: "80%", delay: 0.4 },
+        { left: "75%", top: "60%", delay: 1.1 },
+        { left: "90%", top: "75%", delay: 0.9 },
+        { left: "20%", top: "85%", delay: 0.3 },
+        { left: "50%", top: "50%", delay: 1.3 },
+        { left: "70%", top: "10%", delay: 0.6 },
+        { left: "85%", top: "50%", delay: 1.4 },
+        { left: "60%", top: "60%", delay: 0.8 },
+      ].map((pos, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 md:w-2 md:h-2 bg-theme-accent rounded-full opacity-30"
+          style={{ left: pos.left, top: pos.top }}
+          animate={{
+            y: [0, -100, 0],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            delay: pos.delay,
+          }}
+        />
+      ))}
     </section>
   );
 };

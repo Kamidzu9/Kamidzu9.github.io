@@ -1,156 +1,292 @@
 "use client";
+
 import React from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
-import clsx from "clsx";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Heart,
+  ArrowUp,
+  MapPin,
+  Phone,
+  Globe,
+  Coffee,
+  Code,
+  Sparkles,
+} from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
-
-// Color schemes for dark/light mode
-const colorSchemes = {
-  light: {
-    bg: "",
-    card: "bg-white/90 border-indigo-100",
-    accent: "bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-orange-400",
-    text: "text-indigo-900",
-    subtext: "text-indigo-400",
-    icon: "text-indigo-500",
-    border: "border-indigo-100",
-    link: "hover:text-orange-500 hover:underline underline-offset-4",
-    glow: "hover:shadow-[0_0_16px_2px_rgba(236,72,153,0.18)]",
-  },
-  dark: {
-    bg: "",
-    card: "bg-neutral-900/90 border-indigo-900",
-    accent: "bg-gradient-to-r from-indigo-400 via-fuchsia-500 to-orange-400",
-    text: "text-white",
-    subtext: "text-fuchsia-300",
-    icon: "text-fuchsia-300",
-    border: "border-indigo-900",
-    link: "hover:text-orange-400 hover:underline underline-offset-4",
-    glow: "hover:shadow-[0_0_16px_2px_rgba(236,72,153,0.28)]",
-  },
-};
-
-const socials = [
-  {
-    name: "GitHub",
-    href: "https://github.com/Kamidzu9",
-    icon: Github,
-  },
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/mykhailo-solovey-34345934a/",
-    icon: Linkedin,
-  },
-  {
-    name: "Mail",
-    href: "mailto:msolovey.job@gmail.com",
-    icon: Mail,
-  },
-];
-
-const navLinks = [
-  { name: "Projekte", href: "#projects" },
-  { name: "Skills", href: "#skills" },
-  { name: "Erfahrung", href: "#experience" },
-  { name: "Kontakt", href: "#contact" },
-];
 
 const Footer: React.FC = () => {
   const { theme } = useTheme();
-  const colors = colorSchemes[theme];
+  const currentYear = new Date().getFullYear();
 
-  // Scroll to top
+  const socialLinks = [
+    {
+      name: "GitHub",
+      href: "https://github.com/Kamidzu9",
+      icon: Github,
+      color: "hover:text-gray-400",
+    },
+    {
+      name: "LinkedIn",
+      href: "https://www.linkedin.com/in/mykhailo-solovey-34345934a/",
+      icon: Linkedin,
+      color: "hover:text-blue-400",
+    },
+    {
+      name: "Email",
+      href: "mailto:msolovey.job@gmail.com",
+      icon: Mail,
+      color: "hover:text-red-400",
+    },
+  ];
+
+  const quickLinks = [
+    { name: "Über mich", href: "#home" },
+    { name: "Skills", href: "#skills" },
+    { name: "Erfahrung", href: "#experience" },
+    { name: "Projekte", href: "#projects" },
+    { name: "Kontakt", href: "#contact" },
+  ];
+
   const scrollToTop = () => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer
-      className={clsx(
-        "w-full pt-16 pb-8 px-4 md:px-10 xl:px-0 transition-colors duration-700",
-        colors.bg
-      )}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ type: "spring", stiffness: 80, damping: 18 }}
-        className="max-w-7xl mx-auto flex flex-col md:flex-row md:justify-between gap-10 md:gap-0"
-      >
-        {/* Branding & Socials */}
-        <div className="flex-1 flex flex-col gap-4 md:gap-6 items-center md:items-start">
-          <div className="flex items-center gap-3 mb-2">
-            <span
-              className={clsx(
-                "font-black text-2xl tracking-tight",
-                colors.text
-              )}
+    <footer className="relative bg-theme-primary border-t border-theme-primary">
+      {/* Decorative Top Line */}
+      <div className="w-full h-1 gradient-accent"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          {/* Brand & Description */}
+          <div className="md:col-span-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-3 mb-4"
             >
-              Mykhailo Solovey
-            </span>
-            <span
-              className={clsx(
-                "px-3 py-1 rounded-full text-xs font-bold shadow border",
-                colors.accent,
-                colors.text
-              )}
+              <img
+                src="/avatar.jpg"
+                alt="Mykhailo Solovey"
+                className="w-12 h-12 rounded-full border-2 border-theme-accent"
+              />
+              <div>
+                <h3 className="font-black text-2xl tracking-tight text-blue-600">
+                  Mykhailo Solovey
+                </h3>
+                <p className="text-sm text-theme-secondary">
+                  Full-Stack Developer
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-theme-secondary mb-6 leading-relaxed"
             >
-              Portfolio
-            </span>
+              Leidenschaftlicher Entwickler aus München, der moderne
+              Webanwendungen erstellt und dabei neueste Technologien und
+              bewährte Praktiken einsetzt.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="flex items-center gap-2 text-theme-secondary mb-2"
+            >
+              <MapPin className="w-4 h-4 text-theme-accent" />
+              <span>München, Deutschland</span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="flex items-center gap-2 text-theme-secondary"
+            >
+              <Globe className="w-4 h-4 text-theme-accent" />
+              <span>Verfügbar für Remote-Arbeit</span>
+            </motion.div>
           </div>
-          <div className="flex gap-4 mt-1">
-            {socials.map((s, i) => (
-              <motion.a
-                key={s.name}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.18, rotate: i === 2 ? -10 : 10 }}
-                whileTap={{ scale: 0.95 }}
-                className={clsx(
-                  "rounded-full p-2 shadow border transition-all duration-300 flex items-center justify-center bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl",
-                  colors.icon,
-                  colors.glow
-                )}
-                aria-label={s.name}
+
+          {/* Quick Links */}
+          <div>
+            <motion.h4
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-lg font-bold text-theme-primary mb-4"
+            >
+              Quick Links
+            </motion.h4>
+            <motion.ul
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="space-y-2"
+            >
+              {quickLinks.map((link, index) => (
+                <li key={link.name}>
+                  <motion.a
+                    href={link.href}
+                    className="text-theme-secondary hover:text-theme-accent transition-colors duration-200 flex items-center gap-2 group"
+                    whileHover={{ x: 5 }}
+                  >
+                    <span className="w-1 h-1 bg-theme-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
+                    {link.name}
+                  </motion.a>
+                </li>
+              ))}
+            </motion.ul>
+          </div>
+
+          {/* Contact & Social */}
+          <div>
+            <motion.h4
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-lg font-bold text-theme-primary mb-4"
+            >
+              Kontakt
+            </motion.h4>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="space-y-3 mb-6"
+            >
+              <a
+                href="mailto:msolovey.job@gmail.com"
+                className="flex items-center gap-2 text-theme-secondary hover:text-theme-accent transition-colors duration-200 group"
               >
-                <s.icon className="w-6 h-6" />
-              </motion.a>
-            ))}
+                <Mail className="w-4 h-4" />
+                <span className="group-hover:underline">
+                  msolovey.job@gmail.com
+                </span>
+              </a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="flex gap-4"
+            >
+              {socialLinks.map((social, index) => (
+                <motion.a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-3 bg-theme-secondary border border-theme-primary rounded-full shadow-theme-secondary transition-all duration-300 text-theme-primary ${social.color} hover:scale-110 hover:shadow-lg`}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <social.icon className="w-5 h-5" />
+                </motion.a>
+              ))}
+            </motion.div>
           </div>
         </div>
 
-        {/* Navigation */}
-        <div className="flex-1 flex flex-col items-center">
-          <nav className="flex flex-wrap gap-6 justify-center mb-2">
-            {navLinks.map((link) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                whileHover={{ scale: 1.08 }}
-                className={clsx(
-                  "font-semibold text-base transition-all duration-200 px-2 py-1 rounded",
-                  colors.text,
-                  colors.link
-                )}
+        {/* Bottom Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="pt-8 border-t border-theme-primary flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <div className="flex items-center gap-2 text-theme-secondary">
+            <span>© {currentYear} Mykhailo Solovey.</span>
+            <span>Erstellt mit</span>
+            <Heart className="w-4 h-4 text-red-500 fill-current" />
+            <span>und</span>
+            <Coffee className="w-4 h-4 text-yellow-600" />
+            <span>in München</span>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <motion.div
+              className="flex items-center gap-2 text-theme-secondary"
+              whileHover={{ scale: 1.05 }}
+            >
+              <Code className="w-4 h-4 text-theme-accent" />
+              <span className="text-sm">Next.js + TypeScript</span>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Tech Stack Credits */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mt-8 pt-6 border-t border-theme-primary/30"
+        >
+          <div className="flex flex-wrap justify-center items-center gap-4 text-xs text-theme-secondary">
+            <span>Gebaut mit:</span>
+            {[
+              "React",
+              "Next.js",
+              "TypeScript",
+              "Tailwind CSS",
+              "Framer Motion",
+            ].map((tech, index) => (
+              <motion.span
+                key={tech}
+                className="px-2 py-1 bg-theme-secondary/50 rounded-md border border-theme-primary/30"
+                whileHover={{ scale: 1.05 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: index * 0.1 }}
               >
-                {link.name}
-              </motion.a>
+                {tech}
+              </motion.span>
             ))}
-          </nav>
-        </div>
-      </motion.div>
-      <div
-        className={clsx(
-          "mt-10 text-center text-xs font-medium",
-          colors.subtext
-        )}
-      >
-        © {new Date().getFullYear()} Mykhailo Solovey. All rights reserved.
+          </div>
+        </motion.div>
       </div>
+
+      {/* Floating Elements */}
+      {[...Array(5)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 bg-theme-accent rounded-full opacity-30"
+          style={{
+            left: `${20 + i * 20}%`,
+            top: `${20 + i * 10}%`,
+          }}
+          animate={{
+            y: [0, -10, 0],
+            opacity: [0.3, 0.8, 0.3],
+          }}
+          transition={{
+            duration: 3 + i,
+            repeat: Infinity,
+            delay: i * 0.5,
+          }}
+        />
+      ))}
     </footer>
   );
 };

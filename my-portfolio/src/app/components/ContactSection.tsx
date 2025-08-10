@@ -1,267 +1,248 @@
 "use client";
+
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
-  Github,
-  Linkedin,
   Mail,
+  Phone,
   MapPin,
   Send,
+  Linkedin,
+  Github,
+  MessageCircle,
+  User,
+  PenTool,
   CheckCircle,
+  AlertCircle,
 } from "lucide-react";
-import clsx from "clsx";
 import { useTheme } from "../contexts/ThemeContext";
 
-// Color schemes for dark/light mode
-const colorSchemes = {
-  light: {
-    bg: "",
-    card: "bg-white/90",
-    accent: "bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-orange-400",
-    text: "text-indigo-900",
-    input: "bg-white/80 text-indigo-900",
-    button:
-      "bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white hover:from-fuchsia-500 hover:to-orange-400",
-    shadow: "shadow-2xl shadow-indigo-200/40",
-    icon: "text-indigo-500",
-    overlay: "bg-white/90 text-indigo-900",
-  },
-  dark: {
-    bg: "",
-    card: "bg-neutral-900/90",
-    accent: "bg-gradient-to-r from-indigo-400 via-fuchsia-500 to-orange-400",
-    text: "text-white",
-    input: "bg-neutral-900/80 text-white",
-    button:
-      "bg-gradient-to-r from-indigo-400 to-fuchsia-500 text-white hover:from-fuchsia-500 hover:to-orange-400",
-    shadow: "shadow-2xl shadow-indigo-900/40",
-    icon: "text-fuchsia-300",
-    overlay: "bg-neutral-900/95 text-white",
-  },
-};
-
-// Socials
-const socials = [
-  {
-    name: "GitHub",
-    href: "https://github.com/Kamidzu9",
-    icon: Github,
-  },
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/mykhailo-solovey-34345934a/",
-    icon: Linkedin,
-  },
-  {
-    name: "Mail",
-    href: "mailto:msolovey.job@gmail.com",
-    icon: Mail,
-  },
-];
-
-// Animation variants
-const stagger = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-const fadeIn = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring" as const, stiffness: 80, damping: 18 },
-  },
-};
-
-// Form validation helper
-const validate = (values: any) => {
-  const errors: any = {};
-  if (!values.name || values.name.length < 2)
-    errors.name = "Bitte Name eingeben.";
-  if (!values.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(values.email))
-    errors.email = "Gültige E-Mail eingeben.";
-  if (!values.message || values.message.length < 10)
-    errors.message = "Nachricht zu kurz.";
-  return errors;
-};
-
 const ContactSection: React.FC = () => {
-  // Theme detection
   const { theme } = useTheme();
-  // Form state
-  const [values, setValues] = useState({ name: "", email: "", message: "" });
-  const [errors, setErrors] = useState<any>({});
-  const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [status, setStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
 
-  const colors = colorSchemes[theme];
-
-  // Handle form submit
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const errs = validate(values);
-    setErrors(errs);
-    if (Object.keys(errs).length > 0) return;
-    setLoading(true);
-    // Simulate async send
-    setTimeout(() => {
-      setSent(true);
-      setLoading(false);
-      setValues({ name: "", email: "", message: "" });
-      setTimeout(() => setSent(false), 2500);
-    }, 1200);
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  // Branding/visuals: gradient, glass, logo, map
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("sending");
+
+    // Simulate form submission
+    setTimeout(() => {
+      setStatus("success");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setStatus("idle"), 3000);
+    }, 2000);
+  };
+
+  const contactInfo = [
+    {
+      icon: <Mail className="w-6 h-6" />,
+      label: "E-Mail",
+      value: "msolovey.job@gmail.com",
+      href: "mailto:msolovey.job@gmail.com",
+      color: "text-red-500",
+    },
+    {
+      icon: <MapPin className="w-6 h-6" />,
+      label: "Standort",
+      value: "München, Deutschland",
+      href: null,
+      color: "text-green-500",
+    },
+    {
+      icon: <MessageCircle className="w-6 h-6" />,
+      label: "Status",
+      value: "Verfügbar für Projekte",
+      href: null,
+      color: "text-blue-500",
+    },
+  ];
+
+  const socialLinks = [
+    {
+      name: "LinkedIn",
+      href: "https://www.linkedin.com/in/mykhailo-solovey-34345934a/",
+      icon: <Linkedin className="w-6 h-6" />,
+      color: "hover:bg-blue-600",
+    },
+    {
+      name: "GitHub",
+      href: "https://github.com/Kamidzu9",
+      icon: <Github className="w-6 h-6" />,
+      color: "hover:bg-gray-800",
+    },
+    {
+      name: "E-Mail",
+      href: "mailto:msolovey.job@gmail.com",
+      icon: <Mail className="w-6 h-6" />,
+      color: "hover:bg-red-600",
+    },
+  ];
+
   return (
     <section
       id="contact"
-      className={clsx(
-        "relative py-32 px-2 md:px-4 overflow-visible transition-colors duration-700 flex flex-col items-center justify-center min-h-screen",
-        colors.bg
-      )}
+      className="relative py-24 px-4 md:px-8 bg-theme-primary"
     >
-      {/* Floating gradient blobs for glassmorphism */}
-      <div className="pointer-events-none select-none absolute inset-0 w-full h-full z-0">
-        <motion.div
-          className="absolute left-1/2 top-0 -translate-x-1/2 w-[90vw] h-[60vh] rounded-b-[5rem] bg-gradient-to-br from-indigo-400/30 via-fuchsia-400/20 to-orange-300/10 blur-3xl opacity-70"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2 }}
-        />
-        <motion.div
-          className="absolute right-10 bottom-10 w-40 h-40 rounded-full bg-gradient-to-br from-orange-400/30 via-fuchsia-400/30 to-indigo-400/30 blur-2xl opacity-60 animate-pulse"
-          animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute left-10 top-24 w-32 h-32 rounded-full bg-gradient-to-br from-fuchsia-400/30 via-indigo-400/30 to-orange-400/30 blur-2xl opacity-50 animate-pulse"
-          animate={{ y: [0, -18, 0], x: [0, 12, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
+      {/* Background Orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="orb-1"></div>
+        <div className="orb-2"></div>
+        <div className="orb-3"></div>
       </div>
 
-      {/* Section header with animated divider and branding */}
-      <motion.div
-        className="relative z-10 flex flex-col items-center mb-16"
-        variants={stagger}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-      >
-        <motion.div variants={fadeIn} className="mb-4">
-          <span
-            className={clsx(
-              "inline-block px-8 py-3 rounded-full font-black text-2xl tracking-widest uppercase shadow-2xl border-4 border-transparent bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-orange-400 animate-gradient-x",
-              colors.accent
-            )}
-            style={{ letterSpacing: "0.18em" }}
-          >
-            Kontakt
-          </span>
-        </motion.div>
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
         <motion.div
-          variants={fadeIn}
-          className="w-32 h-2 rounded-full bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-orange-400 mb-6 animate-pulse"
-        />
-        <motion.h2
-          variants={fadeIn}
-          className={clsx(
-            "text-5xl md:text-6xl font-black text-center mb-4 drop-shadow-2xl tracking-tight",
-            colors.text
-          )}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
         >
-          Lass uns zusammenarbeiten
-        </motion.h2>
-        <motion.p
-          variants={fadeIn}
-          className={clsx(
-            "max-w-2xl text-xl md:text-2xl text-center mb-2 font-medium",
-            colors.text,
-            "opacity-80"
-          )}
-        >
-          Du hast ein spannendes Projekt, eine Idee oder möchtest einfach nur
-          Hallo sagen? Schreib mir gern eine Nachricht oder nutze die Socials!
-        </motion.p>
-      </motion.div>
+          <h2 className="text-5xl md:text-6xl font-black mb-6 gradient-accent bg-clip-text text-transparent">
+            Kontakt
+          </h2>
+          <p className="text-xl text-theme-secondary max-w-3xl mx-auto leading-relaxed">
+            Haben Sie ein spannendes Projekt oder möchten Sie einfach nur Hallo
+            sagen? Ich freue mich darauf, von Ihnen zu hören!
+          </p>
+        </motion.div>
 
-      {/* Socials with animated icons and parallax */}
-      <motion.div
-        className="flex gap-7 justify-center mb-12 z-20 relative"
-        variants={stagger}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-      >
-        {socials.map((s, i) => (
-          <motion.a
-            key={s.name}
-            href={s.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            variants={fadeIn}
-            whileHover={{ scale: 1.22, rotate: i === 2 ? -12 : 12, y: -6 }}
-            whileTap={{ scale: 0.95 }}
-            className={clsx(
-              "rounded-full p-4 shadow-2xl border-2 border-transparent transition-all duration-300 flex items-center justify-center bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl",
-              colors.icon,
-              "hover:border-orange-400 hover:bg-orange-50 dark:hover:bg-fuchsia-900/40 hover:shadow-orange-200"
-            )}
-            aria-label={s.name}
-            style={{ boxShadow: "0 4px 32px 0 rgba(99,102,241,0.13)" }}
-          >
-            <s.icon className="w-8 h-8" />
-          </motion.a>
-        ))}
-      </motion.div>
-
-      {/* Animated message sent overlay */}
-      <AnimatePresence>
-        {sent && (
+        <div className="grid grid-cols-1 gap-12">
+          {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 200, damping: 18 }}
-            className={clsx(
-              "fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm",
-              colors.overlay
-            )}
-            onClick={() => setSent(false)}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="space-y-8"
           >
-            <div className="flex flex-col items-center gap-4 p-12 rounded-3xl border-2 shadow-2xl">
-              <CheckCircle className="w-20 h-20 text-green-500 mb-2 animate-bounce" />
-              <div
-                className={clsx("text-3xl font-black text-center", colors.text)}
-              >
-                Nachricht gesendet!
-              </div>
-              <div className="text-lg text-center opacity-80">
-                Vielen Dank für deine Nachricht. Ich melde mich schnellstmöglich
-                zurück.
-              </div>
+            <div>
+              <h3 className="text-3xl font-bold text-theme-primary mb-6">
+                Lass uns zusammenarbeiten
+              </h3>
+              <p className="text-theme-secondary leading-relaxed mb-8">
+                Ich bin immer offen für neue Herausforderungen und interessante
+                Projekte. Ob Sie eine Webanwendung, ein Plugin oder eine
+                maßgeschneiderte Lösung benötigen – lassen Sie uns darüber
+                sprechen!
+              </p>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      {/* Optional: Mini-Map/Standortanzeige (static, for branding) */}
-      <motion.div
-        className="mt-20 flex flex-col items-center gap-2 opacity-90"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, delay: 0.2 }}
-      >
-        <MapPin className="w-10 h-10 text-orange-400 mb-1 animate-pulse" />
-        <span className={clsx("font-bold text-lg", colors.text)}>
-          Standort: Thüringen, Deutschland
-        </span>
-      </motion.div>
+            {/* Contact Details */}
+            <div className="space-y-6">
+              {contactInfo.map((info, index) => (
+                <motion.div
+                  key={info.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                  className="flex items-center gap-4 p-4 bg-theme-secondary border border-theme-primary rounded-xl shadow-theme-secondary hover:shadow-lg transition-all duration-300"
+                >
+                  <div
+                    className={`flex-shrink-0 p-3 rounded-lg bg-theme-primary ${info.color}`}
+                  >
+                    {info.icon}
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-theme-primary">
+                      {info.label}
+                    </h4>
+                    {info.href ? (
+                      <a
+                        href={info.href}
+                        className="text-theme-secondary hover:text-theme-accent transition-colors duration-200"
+                      >
+                        {info.value}
+                      </a>
+                    ) : (
+                      <p className="text-theme-secondary">{info.value}</p>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Social Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="pt-8"
+            >
+              <h4 className="text-xl font-bold text-theme-primary mb-4">
+                Folgen Sie mir
+              </h4>
+              <div className="flex gap-4">
+                {socialLinks.map((social, index) => (
+                  <motion.a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`
+                      p-4 bg-theme-secondary border border-theme-primary rounded-xl shadow-theme-secondary 
+                      transition-all duration-300 text-theme-primary hover:text-white hover:scale-110 hover:shadow-lg ${social.color}
+                    `}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-20 text-center p-12 bg-theme-secondary border border-theme-primary rounded-xl shadow-theme-secondary"
+        >
+          <h3 className="text-3xl font-bold text-theme-primary mb-4">
+            Bereit für Ihr nächstes Projekt?
+          </h3>
+          <p className="text-xl text-theme-secondary mb-8 max-w-2xl mx-auto">
+            Lassen Sie uns gemeinsam etwas Großartiges schaffen. Von der Idee
+            bis zur Umsetzung – ich stehe Ihnen zur Seite.
+          </p>
+          <motion.a
+            href="mailto:msolovey.job@gmail.com"
+            className="btn-primary flex items-center justify-center gap-2"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Mail className="w-5 h-5" />
+            Jetzt Kontakt aufnehmen
+          </motion.a>
+        </motion.div>
+      </div>
     </section>
   );
 };
