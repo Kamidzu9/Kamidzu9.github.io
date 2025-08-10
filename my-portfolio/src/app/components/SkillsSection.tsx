@@ -509,8 +509,8 @@ const skills: Skill[] = [
     projectsCount: 12,
     description:
       "Shell scripting for automation, system administration, and command-line tools.",
-    icon: <Terminal className="w-8 h-8 text-green-600" />,
-    color: "text-green-600",
+    icon: <Terminal className="w-8 h-8" />,
+    color: "text-green-600 dark:text-green-400 group-[.black]:text-green-400",
     gradient: "from-green-600 to-green-800",
     tags: ["Scripting", "Automation", "CLI", "System Admin"],
     isFavorite: false,
@@ -612,6 +612,9 @@ const SkillsSection: React.FC = () => {
     (skill) => selectedCategory === "all" || skill.category === selectedCategory
   );
 
+  // Show more logic
+  const [showAll, setShowAll] = useState(false);
+  const skillsPerPage = 6;
   const sortedSkills = [...filteredSkills].sort((a, b) => {
     switch (sortBy) {
       case "level":
@@ -624,6 +627,9 @@ const SkillsSection: React.FC = () => {
         return 0;
     }
   });
+  const visibleSkills = showAll
+    ? sortedSkills
+    : sortedSkills.slice(0, skillsPerPage);
 
   const favoriteSkills = skills.filter((skill) => skill.isFavorite);
 
@@ -731,11 +737,11 @@ const SkillsSection: React.FC = () => {
           </div>
 
           {/* Sort Options */}
-          <div className="flex items-center gap-4">
-            <span className="text-theme-primary font-semibold">
+          <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 w-full">
+            <span className="text-theme-primary font-semibold min-w-max mb-1 md:mb-0">
               Sortieren nach:
             </span>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2 w-full">
               {[
                 { key: "level", label: "Skill Level" },
                 { key: "experience", label: "Erfahrung" },
@@ -747,7 +753,7 @@ const SkillsSection: React.FC = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className={`
-                    px-4 py-2 rounded-lg font-medium transition-all duration-200
+                    w-full sm:w-auto px-4 py-3 rounded-lg font-medium transition-all duration-200
                     ${
                       sortBy === option.key
                         ? "bg-theme-accent text-white"
@@ -763,6 +769,7 @@ const SkillsSection: React.FC = () => {
         </motion.div>
 
         {/* Skills Grid */}
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -771,7 +778,7 @@ const SkillsSection: React.FC = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           <AnimatePresence mode="wait">
-            {sortedSkills.map((skill, index) => (
+            {visibleSkills.map((skill, index) => (
               <motion.div
                 key={skill.id}
                 layout
@@ -894,6 +901,27 @@ const SkillsSection: React.FC = () => {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* Show More / Show Less Button */}
+        {sortedSkills.length > skillsPerPage && (
+          <div className="flex justify-center mt-6">
+            {showAll ? (
+              <button
+                className="px-6 py-3 rounded-full bg-theme-secondary text-theme-primary font-semibold shadow-lg border border-theme-accent hover:scale-105 transition-all duration-200"
+                onClick={() => setShowAll(false)}
+              >
+                Weniger anzeigen
+              </button>
+            ) : (
+              <button
+                className="px-6 py-3 rounded-full bg-theme-accent text-white font-semibold shadow-lg hover:scale-105 transition-all duration-200"
+                onClick={() => setShowAll(true)}
+              >
+                Mehr anzeigen
+              </button>
+            )}
+          </div>
+        )}
 
         {/* Skills Summary */}
         <motion.div

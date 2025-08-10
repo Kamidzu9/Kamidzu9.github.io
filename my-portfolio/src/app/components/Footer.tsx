@@ -105,7 +105,7 @@ const Footer: React.FC = () => {
               className="flex items-center gap-2 text-theme-secondary mb-2"
             >
               <MapPin className="w-4 h-4 text-theme-accent" />
-              <span>München, Deutschland</span>
+              <span>Thüringen, Deutschland</span>
             </motion.div>
 
             <motion.div

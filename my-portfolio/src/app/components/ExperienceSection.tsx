@@ -283,7 +283,7 @@ const ExperienceSection: React.FC = () => {
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
-              <div className="text-4xl font-black gradient-accent bg-clip-text text-transparent mb-2">
+              <div className="text-4xl font-black bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent mb-2">
                 2+
               </div>
               <div className="text-theme-secondary font-semibold">
@@ -291,7 +291,7 @@ const ExperienceSection: React.FC = () => {
               </div>
             </div>
             <div>
-              <div className="text-4xl font-black gradient-accent bg-clip-text text-transparent mb-2">
+              <div className="text-4xl font-black bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent mb-2">
                 3
               </div>
               <div className="text-theme-secondary font-semibold">
@@ -299,7 +299,7 @@ const ExperienceSection: React.FC = () => {
               </div>
             </div>
             <div>
-              <div className="text-4xl font-black gradient-accent bg-clip-text text-transparent mb-2">
+              <div className="text-4xl font-black bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent mb-2">
                 ∞
               </div>
               <div className="text-theme-secondary font-semibold">

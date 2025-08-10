@@ -88,7 +88,9 @@ const ProjectsSection: React.FC = () => {
         (selectedCategory === "All" || p.category === selectedCategory) &&
         (searchTerm.trim() === "" ||
           p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.tags.some((t) => t.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          p.tags.some((t) =>
+            t.toLowerCase().includes(searchTerm.toLowerCase())
+          ) ||
           p.description.toLowerCase().includes(searchTerm.toLowerCase()))
     );
   }, [selectedCategory, searchTerm]);
@@ -114,12 +116,13 @@ const ProjectsSection: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl md:text-6xl font-black mb-6 gradient-accent bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent">
             Meine Projekte
           </h2>
           <p className="text-xl text-theme-secondary max-w-3xl mx-auto leading-relaxed">
             Eine Auswahl meiner neuesten Arbeiten und Projekte. Von
-            Webanwendungen bis hin zu Plugins – hier sehen Sie, was ich erstelle.
+            Webanwendungen bis hin zu Plugins – hier sehen Sie, was ich
+            erstelle.
           </p>
         </motion.div>
 
@@ -202,7 +205,7 @@ const ProjectsSection: React.FC = () => {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  
+
                   {/* Hover Actions */}
                   <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {project.link && (
@@ -239,7 +242,7 @@ const ProjectsSection: React.FC = () => {
                   <h3 className="text-xl font-bold text-theme-primary mb-3 group-hover:text-theme-accent transition-colors duration-200">
                     {project.title}
                   </h3>
-                  
+
                   <p className="text-theme-secondary mb-4 line-clamp-3">
                     {project.description}
                   </p>
@@ -314,21 +317,25 @@ const ProjectsSection: React.FC = () => {
                 <h3 className="text-2xl font-bold text-theme-primary mb-4">
                   {selectedProject.title}
                 </h3>
-                
+
                 <p className="text-theme-secondary mb-6 leading-relaxed">
                   {selectedProject.description}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
-                    <h4 className="font-semibold text-theme-primary mb-2">Kategorie</h4>
+                    <h4 className="font-semibold text-theme-primary mb-2">
+                      Kategorie
+                    </h4>
                     <span className="px-3 py-1 bg-theme-accent/10 text-theme-accent rounded-full text-sm">
                       {selectedProject.category}
                     </span>
                   </div>
-                  
+
                   <div>
-                    <h4 className="font-semibold text-theme-primary mb-2">Technologien</h4>
+                    <h4 className="font-semibold text-theme-primary mb-2">
+                      Technologien
+                    </h4>
                     <div className="flex flex-wrap gap-1">
                       {selectedProject.tech.map((tech, index) => (
                         <span

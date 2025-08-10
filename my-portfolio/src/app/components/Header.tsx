@@ -43,6 +43,18 @@ const navLinks = [
 const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Lock scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
   const [active, setActive] = useState<string>("");
   const [scroll, setScroll] = useState(0);
 
@@ -198,7 +210,12 @@ const Header: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -40, opacity: 0 }}
             transition={{ type: "spring", stiffness: 180, damping: 22 }}
-            className="md:hidden fixed top-16 left-0 w-full z-40 px-4 pb-8 pt-6 flex flex-col gap-4 card-glass"
+            className="md:hidden fixed top-16 left-0 w-full z-40 px-4 pb-8 pt-6 flex flex-col gap-4 card-glass border-b border-theme-primary shadow-lg"
+            style={{
+              background: "rgba(255,255,255,0.95)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+            }}
           >
             {navLinks.map((link) => (
               <a
@@ -210,7 +227,23 @@ const Header: React.FC = () => {
                     ? "text-theme-accent"
                     : "hover:text-theme-accent"
                 )}
-                onClick={() => setMobileOpen(false)}
+                onClick={() => {
+                  setMobileOpen(false);
+                  // Scroll to section if anchor
+                  if (link.href.startsWith("#")) {
+                    const el = document.getElementById(
+                      link.href.replace("#", "")
+                    );
+                    if (el) {
+                      setTimeout(() => {
+                        el.scrollIntoView({
+                          behavior: "smooth",
+                          block: "start",
+                        });
+                      }, 100);
+                    }
+                  }
+                }}
               >
                 {link.name}
               </a>
@@ -219,7 +252,15 @@ const Header: React.FC = () => {
             <a
               href="#contact"
               className="mt-2 btn-primary text-center"
-              onClick={() => setMobileOpen(false)}
+              onClick={() => {
+                setMobileOpen(false);
+                const el = document.getElementById("contact");
+                if (el) {
+                  setTimeout(() => {
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }, 100);
+                }
+              }}
             >
               Contact Me <ArrowUpRight className="inline w-4 h-4 ml-1 -mt-1" />
             </a>

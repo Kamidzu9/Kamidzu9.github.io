@@ -61,7 +61,7 @@ const ContactSection: React.FC = () => {
     {
       icon: <MapPin className="w-6 h-6" />,
       label: "Standort",
-      value: "München, Deutschland",
+      value: "Thüringen, Deutschland",
       href: null,
       color: "text-green-500",
     },
@@ -116,7 +116,7 @@ const ContactSection: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl md:text-6xl font-black mb-6 gradient-accent bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent">
             Kontakt
           </h2>
           <p className="text-xl text-theme-secondary max-w-3xl mx-auto leading-relaxed">
