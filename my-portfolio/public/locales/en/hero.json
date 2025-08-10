@@ -1,0 +1,16 @@
+{
+  "greeting": "Hi, I'm",
+  "name": "Mykhailo Solovey",
+  "subtitle": "Full-Stack Developer",
+  "description": "Passionate developer from Munich creating modern web applications using the latest technologies and best practices.",
+  "typing_roles": [
+    "Full-Stack Developer",
+    "Frontend Specialist",
+    "Backend Developer",
+    "Web Developer"
+  ],
+  "scroll_to_explore": "Scroll to explore",
+  "social_github": "Visit my GitHub",
+  "social_linkedin": "Connect on LinkedIn",
+  "social_email": "Send me an email"
+}

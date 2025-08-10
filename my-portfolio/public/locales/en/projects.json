@@ -1,0 +1,16 @@
+{
+  "title": "My Projects",
+  "description": "A selection of my latest work and projects. From web applications to plugins – here you can see what I create.",
+  "all": "All",
+  "web": "Web",
+  "mobile": "Mobile",
+  "games": "Games",
+  "other": "Other",
+  "search_placeholder": "Search projects...",
+  "view_project": "View Project",
+  "view_code": "View Code",
+  "technologies_used": "Technologies Used",
+  "no_results": "No projects found",
+  "no_results_description": "Try adjusting your search or filter criteria.",
+  "close": "Close"
+}

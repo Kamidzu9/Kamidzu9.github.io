@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Briefcase, GraduationCap, Award, Info, Filter } from "lucide-react";
 import clsx from "clsx";
 import { useTheme } from "../contexts/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 // Experience/Education data type
 interface Entry {
@@ -59,6 +60,7 @@ const entries: Entry[] = [
 
 const ExperienceSection: React.FC = () => {
   const { theme } = useTheme();
+  const { t } = useTranslation("experience");
   const [filter, setFilter] = useState<"all" | "experience" | "education">(
     "all"
   );
@@ -66,6 +68,19 @@ const ExperienceSection: React.FC = () => {
   const filteredEntries = entries.filter(
     (entry) => filter === "all" || entry.type === filter
   );
+
+  const getFilterLabel = (key: string) => {
+    switch (key) {
+      case "all":
+        return t("filters.all");
+      case "experience":
+        return t("filters.experience");
+      case "education":
+        return t("filters.education");
+      default:
+        return key;
+    }
+  };
 
   return (
     <section
@@ -93,11 +108,10 @@ const ExperienceSection: React.FC = () => {
               dark:bg-gradient-to-r dark:from-cyan-400 dark:to-blue-600
               group-[.black]:bg-gradient-to-r group-[.black]:from-white group-[.black]:to-gray-400"
           >
-            Mein Werdegang
+            {t("title")}
           </h2>
           <p className="text-xl text-theme-secondary max-w-3xl mx-auto leading-relaxed">
-            Von der Ausbildung bis hin zu praktischen Projekten – hier ist mein
-            bisheriger Weg in der IT-Welt.
+            {t("description")}
           </p>
         </motion.div>
 
@@ -113,17 +127,17 @@ const ExperienceSection: React.FC = () => {
             {[
               {
                 key: "all",
-                label: "Alle",
+                label: getFilterLabel("all"),
                 icon: <Filter className="w-4 h-4" />,
               },
               {
                 key: "experience",
-                label: "Erfahrung",
+                label: getFilterLabel("experience"),
                 icon: <Briefcase className="w-4 h-4" />,
               },
               {
                 key: "education",
-                label: "Bildung",
+                label: getFilterLabel("education"),
                 icon: <GraduationCap className="w-4 h-4" />,
               },
             ].map((item) => (

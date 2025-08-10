@@ -25,6 +25,7 @@ import {
   Flame,
 } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 const socials = [
   {
@@ -137,6 +138,7 @@ const TypingEffect: React.FC<{ texts: string[]; className?: string }> = ({
 
 const HeroSection: React.FC = () => {
   const { theme } = useTheme();
+  const { t } = useTranslation("hero");
   const controls = useAnimation();
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -267,11 +269,11 @@ const HeroSection: React.FC = () => {
           <div className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 h-12">
             <TypingEffect
               texts={[
-                "Webentwickler in Ausbildung",
-                "Frontend Specialist",
-                "Backend Developer",
-                "Full-Stack Enthusiast",
-                "UI/UX Lover",
+                t("roles.web_developer"),
+                t("roles.frontend_specialist"),
+                t("roles.backend_developer"),
+                t("roles.fullstack_enthusiast"),
+                t("roles.ui_ux_lover"),
               ]}
               className="text-theme-accent"
             />
@@ -281,14 +283,7 @@ const HeroSection: React.FC = () => {
             className="text-lg md:text-xl text-theme-secondary max-w-3xl mx-auto leading-relaxed"
             variants={itemVariants}
           >
-            Leidenschaftlicher Azubi mit 2 Jahren Erfahrung in modernen
-            Webtechnologien. Spezialisiert auf{" "}
-            <span className="font-semibold text-theme-accent">React</span>,{" "}
-            <span className="font-semibold text-theme-accent">PHP</span> und{" "}
-            <span className="font-semibold text-theme-accent">
-              schönes Design
-            </span>
-            .
+            {t("description")}
           </motion.p>
         </motion.div>
 
@@ -335,19 +330,19 @@ const HeroSection: React.FC = () => {
           <div className="flex items-center gap-2 card-glass px-3 md:px-4 py-2 rounded-full shadow-theme-secondary border border-theme-primary">
             <MapPin className="w-4 h-4 md:w-5 md:h-5 text-theme-accent" />
             <span className="text-theme-primary font-medium text-sm md:text-base">
-              Deutschland
+              {t("location")}
             </span>
           </div>
           <div className="flex items-center gap-2 card-glass px-3 md:px-4 py-2 rounded-full shadow-theme-secondary border border-theme-primary">
             <Coffee className="w-4 h-4 md:w-5 md:h-5 text-theme-accent" />
             <span className="text-theme-primary font-medium text-sm md:text-base">
-              Verfügbar für Projekte
+              {t("availability")}
             </span>
           </div>
           <div className="flex items-center gap-2 card-glass px-3 md:px-4 py-2 rounded-full shadow-theme-secondary border border-theme-primary">
             <Heart className="w-4 h-4 md:w-5 md:h-5 text-red-500" />
             <span className="text-theme-primary font-medium text-sm md:text-base">
-              Code mit Leidenschaft
+              {t("passion")}
             </span>
           </div>
         </motion.div>
@@ -401,7 +396,7 @@ const HeroSection: React.FC = () => {
             whileTap={{ scale: 0.98 }}
           >
             <Mail className="w-5 h-5 md:w-6 md:h-6" />
-            Kontakt aufnehmen
+            {t("cta.contact")}
           </motion.a>
 
           <motion.a
@@ -412,7 +407,7 @@ const HeroSection: React.FC = () => {
             whileTap={{ scale: 0.98 }}
           >
             <Download className="w-5 h-5 md:w-6 md:h-6" />
-            Lebenslauf herunterladen
+            {t("cta.download_cv")}
           </motion.a>
         </motion.div>
 
@@ -437,7 +432,7 @@ const HeroSection: React.FC = () => {
               }}
             >
               <span className="text-sm md:text-base font-semibold mb-3 text-theme-primary">
-                Mehr erfahren
+                {t("scroll_down")}
               </span>
               <div className="w-8 h-12 md:w-10 md:h-16 border-3 border-theme-accent rounded-full flex justify-center bg-theme-primary/10 backdrop-blur-sm">
                 <motion.div

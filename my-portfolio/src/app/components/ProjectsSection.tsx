@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, ExternalLink, Tag, Github, Eye } from "lucide-react";
 import clsx from "clsx";
 import { useTheme } from "../contexts/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 // Project data type
 type Project = {
@@ -68,19 +69,37 @@ const projects: Project[] = [
   },
 ];
 
-const categories = [
-  { value: "All", label: "Alle" },
-  { value: "Web", label: "Web" },
-  { value: "Mobile", label: "Mobile" },
-  { value: "Games", label: "Games" },
-  { value: "Other", label: "Sonstige" },
-];
-
 const ProjectsSection: React.FC = () => {
   const { theme } = useTheme();
+  const { t } = useTranslation("projects");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const categories = [
+    { value: "All", label: t("filters.all") },
+    { value: "Web", label: "Web" },
+    { value: "Mobile", label: "Mobile" },
+    { value: "Games", label: "Games" },
+    { value: "Other", label: t("filters.other") },
+  ];
+
+  const getCategoryLabel = (value: string) => {
+    switch (value) {
+      case "All":
+        return t("filters.all");
+      case "Web":
+        return "Web";
+      case "Mobile":
+        return "Mobile";
+      case "Games":
+        return "Games";
+      case "Other":
+        return t("filters.other");
+      default:
+        return value;
+    }
+  };
 
   const filteredProjects = useMemo(() => {
     return projects.filter(
@@ -117,12 +136,10 @@ const ProjectsSection: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent">
-            Meine Projekte
+            {t("title")}
           </h2>
           <p className="text-xl text-theme-secondary max-w-3xl mx-auto leading-relaxed">
-            Eine Auswahl meiner neuesten Arbeiten und Projekte. Von
-            Webanwendungen bis hin zu Plugins – hier sehen Sie, was ich
-            erstelle.
+            {t("description")}
           </p>
         </motion.div>
 
@@ -161,7 +178,7 @@ const ProjectsSection: React.FC = () => {
             </div>
             <input
               type="text"
-              placeholder="Projekte suchen..."
+              placeholder={`${t("title")} suchen...`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-10 py-3 bg-theme-secondary border border-theme-primary rounded-full text-theme-primary placeholder-theme-secondary focus:ring-2 focus:ring-theme-accent focus:border-theme-accent transition-all duration-200"

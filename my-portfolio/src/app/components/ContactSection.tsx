@@ -16,9 +16,11 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 const ContactSection: React.FC = () => {
   const { theme } = useTheme();
+  const { t } = useTranslation("contact");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -53,22 +55,22 @@ const ContactSection: React.FC = () => {
   const contactInfo = [
     {
       icon: <Mail className="w-6 h-6" />,
-      label: "E-Mail",
+      label: t("contact_info.email"),
       value: "msolovey.job@gmail.com",
       href: "mailto:msolovey.job@gmail.com",
       color: "text-red-500",
     },
     {
       icon: <MapPin className="w-6 h-6" />,
-      label: "Standort",
+      label: t("contact_info.location"),
       value: "Thüringen, Deutschland",
       href: null,
       color: "text-green-500",
     },
     {
       icon: <MessageCircle className="w-6 h-6" />,
-      label: "Status",
-      value: "Verfügbar für Projekte",
+      label: t("contact_info.availability"),
+      value: t("availability.status"),
       href: null,
       color: "text-blue-500",
     },
@@ -117,11 +119,10 @@ const ContactSection: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-blue-500 to-orange-500 bg-clip-text text-transparent">
-            Kontakt
+            {t("title")}
           </h2>
           <p className="text-xl text-theme-secondary max-w-3xl mx-auto leading-relaxed">
-            Haben Sie ein spannendes Projekt oder möchten Sie einfach nur Hallo
-            sagen? Ich freue mich darauf, von Ihnen zu hören!
+            {t("description")}
           </p>
         </motion.div>
 
@@ -136,13 +137,10 @@ const ContactSection: React.FC = () => {
           >
             <div>
               <h3 className="text-3xl font-bold text-theme-primary mb-6">
-                Lass uns zusammenarbeiten
+                {t("get_in_touch")}
               </h3>
               <p className="text-theme-secondary leading-relaxed mb-8">
-                Ich bin immer offen für neue Herausforderungen und interessante
-                Projekte. Ob Sie eine Webanwendung, ein Plugin oder eine
-                maßgeschneiderte Lösung benötigen – lassen Sie uns darüber
-                sprechen!
+                {t("description")}
               </p>
             </div>
 
@@ -190,7 +188,7 @@ const ContactSection: React.FC = () => {
               className="pt-8"
             >
               <h4 className="text-xl font-bold text-theme-primary mb-4">
-                Folgen Sie mir
+                {t("social.follow_me")}
               </h4>
               <div className="flex gap-4">
                 {socialLinks.map((social, index) => (
@@ -226,11 +224,10 @@ const ContactSection: React.FC = () => {
           className="mt-20 text-center p-12 bg-theme-secondary border border-theme-primary rounded-xl shadow-theme-secondary"
         >
           <h3 className="text-3xl font-bold text-theme-primary mb-4">
-            Bereit für Ihr nächstes Projekt?
+            {t("availability.open_to")}
           </h3>
           <p className="text-xl text-theme-secondary mb-8 max-w-2xl mx-auto">
-            Lassen Sie uns gemeinsam etwas Großartiges schaffen. Von der Idee
-            bis zur Umsetzung – ich stehe Ihnen zur Seite.
+            {t("availability.response_time")}
           </p>
           <motion.a
             href="mailto:msolovey.job@gmail.com"
@@ -239,7 +236,7 @@ const ContactSection: React.FC = () => {
             whileTap={{ scale: 0.95 }}
           >
             <Mail className="w-5 h-5" />
-            Jetzt Kontakt aufnehmen
+            {t("get_in_touch")}
           </motion.a>
         </motion.div>
       </div>

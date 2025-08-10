@@ -16,9 +16,11 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 const Footer: React.FC = () => {
   const { theme } = useTheme();
+  const { t } = useTranslation(["navigation", "common"]);
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
@@ -43,11 +45,11 @@ const Footer: React.FC = () => {
   ];
 
   const quickLinks = [
-    { name: "Über mich", href: "#home" },
-    { name: "Skills", href: "#skills" },
-    { name: "Erfahrung", href: "#experience" },
-    { name: "Projekte", href: "#projects" },
-    { name: "Kontakt", href: "#contact" },
+    { name: t("navigation:about"), href: "#home" },
+    { name: t("navigation:skills"), href: "#skills" },
+    { name: t("navigation:experience"), href: "#experience" },
+    { name: t("navigation:projects"), href: "#projects" },
+    { name: t("navigation:contact"), href: "#contact" },
   ];
 
   const scrollToTop = () => {
@@ -92,9 +94,7 @@ const Footer: React.FC = () => {
               transition={{ delay: 0.1 }}
               className="text-theme-secondary mb-6 leading-relaxed"
             >
-              Leidenschaftlicher Entwickler aus München, der moderne
-              Webanwendungen erstellt und dabei neueste Technologien und
-              bewährte Praktiken einsetzt.
+              {t("common:footerDescription")}
             </motion.p>
 
             <motion.div
@@ -105,7 +105,7 @@ const Footer: React.FC = () => {
               className="flex items-center gap-2 text-theme-secondary mb-2"
             >
               <MapPin className="w-4 h-4 text-theme-accent" />
-              <span>Thüringen, Deutschland</span>
+              <span>{t("common:location")}</span>
             </motion.div>
 
             <motion.div
@@ -116,7 +116,7 @@ const Footer: React.FC = () => {
               className="flex items-center gap-2 text-theme-secondary"
             >
               <Globe className="w-4 h-4 text-theme-accent" />
-              <span>Verfügbar für Remote-Arbeit</span>
+              <span>{t("common:remoteAvailable")}</span>
             </motion.div>
           </div>
 
@@ -128,7 +128,7 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
               className="text-lg font-bold text-theme-primary mb-4"
             >
-              Quick Links
+              {t("common:quickLinks")}
             </motion.h4>
             <motion.ul
               initial={{ opacity: 0, y: 20 }}
@@ -160,7 +160,7 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
               className="text-lg font-bold text-theme-primary mb-4"
             >
-              Kontakt
+              {t("navigation:contact")}
             </motion.h4>
 
             <motion.div
@@ -217,11 +217,11 @@ const Footer: React.FC = () => {
         >
           <div className="flex items-center gap-2 text-theme-secondary">
             <span>© {currentYear} Mykhailo Solovey.</span>
-            <span>Erstellt mit</span>
+            <span>{t("common:builtWith")}</span>
             <Heart className="w-4 h-4 text-red-500 fill-current" />
-            <span>und</span>
+            <span>{t("common:and")}</span>
             <Coffee className="w-4 h-4 text-yellow-600" />
-            <span>in München</span>
+            <span>{t("common:inMunich")}</span>
           </div>
 
           <div className="flex items-center gap-4">
@@ -244,7 +244,7 @@ const Footer: React.FC = () => {
           className="mt-8 pt-6 border-t border-theme-primary/30"
         >
           <div className="flex flex-wrap justify-center items-center gap-4 text-xs text-theme-secondary">
-            <span>Gebaut mit:</span>
+            <span>{t("common:builtWith")}:</span>
             {[
               "React",
               "Next.js",

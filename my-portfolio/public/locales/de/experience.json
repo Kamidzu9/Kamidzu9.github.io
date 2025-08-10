@@ -1,0 +1,22 @@
+{
+  "title": "Mein Werdegang",
+  "description": "Von der Ausbildung bis hin zu praktischen Projekten – hier ist mein bisheriger Weg in der IT-Welt.",
+  "all": "Alle",
+  "experience": "Erfahrung",
+  "education": "Bildung",
+  "current_position": "Trainee IT Specialist - Application Development",
+  "current_company": "HQ GmbH",
+  "current_period": "Aug. 2023 - Gegenwart",
+  "current_description": "Linux, Teamwork, Anwendungsentwicklung mit verschiedenen Technologien.",
+  "education_title": "IT Specialist als Application Developer (Ausbildung)",
+  "education_institution": "BSZ Hermsdorf-Schleiz-Pößneck",
+  "education_period": "Aug. 2023 - Aug. 2026",
+  "education_description": "Duale Ausbildung in der Softwareentwicklung, Theorie & Praxis.",
+  "high_school_title": "Abitur, Geisteswissenschaftliches Profil",
+  "high_school_institution": "Schule Nr. 7 Sosniwka",
+  "high_school_period": "2009 - 2021",
+  "high_school_description": "Gymnasium in der Ukraine, Schwerpunkt Geisteswissenschaften.",
+  "years_experience": "Jahre Erfahrung",
+  "ongoing_projects": "Laufende Projekte",
+  "completed_education": "Abgeschlossene Bildung"
+}

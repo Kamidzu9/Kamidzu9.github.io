@@ -1,0 +1,22 @@
+{
+  "title": "My Journey",
+  "description": "From education to practical projects – here is my journey in the IT world so far.",
+  "all": "All",
+  "experience": "Experience",
+  "education": "Education",
+  "current_position": "Trainee IT Specialist - Application Development",
+  "current_company": "HQ GmbH",
+  "current_period": "Aug. 2023 - Present",
+  "current_description": "Linux, Teamwork, application development with various technologies.",
+  "education_title": "IT Specialist as Application Developer (Ausbildung)",
+  "education_institution": "BSZ Hermsdorf-Schleiz-Pößneck",
+  "education_period": "Aug. 2023 - Aug. 2026",
+  "education_description": "Dual education in software development, theory & practice.",
+  "high_school_title": "High School Diploma, Geisteswissenschaftliches Profil",
+  "high_school_institution": "Schule Nr. 7 Sosniwka",
+  "high_school_period": "2009 - 2021",
+  "high_school_description": "High School in Ukraine, focus on humanities.",
+  "years_experience": "Years Experience",
+  "ongoing_projects": "Ongoing Projects",
+  "completed_education": "Completed Education"
+}

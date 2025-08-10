@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import clsx from "clsx";
 import { useTheme } from "../contexts/ThemeContext";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "./LanguageSelector";
 
 const socials = [
   {
@@ -33,16 +35,17 @@ const socials = [
   },
 ];
 
-const navLinks = [
-  { name: "Skills", href: "#skills" },
-  { name: "Erfahrung", href: "#experience" },
-  { name: "Projekte", href: "#projects" },
-  { name: "Kontakt", href: "#contact" },
-];
-
 const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
+  const { t } = useTranslation("navigation");
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const navLinks = [
+    { name: t("skills"), href: "#skills" },
+    { name: t("experience"), href: "#experience" },
+    { name: t("projects"), href: "#projects" },
+    { name: t("contact"), href: "#contact" },
+  ];
 
   // Lock scroll when mobile menu is open
   useEffect(() => {
@@ -100,13 +103,13 @@ const Header: React.FC = () => {
   const getThemeLabel = () => {
     switch (theme) {
       case "light":
-        return "Light";
+        return t("theme.light");
       case "dark":
-        return "Dark";
+        return t("theme.dark");
       case "black":
-        return "Black";
+        return t("theme.black");
       default:
-        return "Light";
+        return t("theme.light");
     }
   };
 
@@ -166,20 +169,15 @@ const Header: React.FC = () => {
             </motion.a>
           ))}
 
-          <motion.a
-            href="#contact"
-            className="ml-4 btn-primary"
-            whileHover={{ scale: 1.08, y: -2 }}
-          >
-            Contact Me <ArrowUpRight className="inline w-4 h-4 ml-1 -mt-1" />
-          </motion.a>
+          {/* Language Selector */}
+          <LanguageSelector />
 
           {/* Theme Switcher */}
           <div className="relative ml-4">
             <button
               onClick={cycleTheme}
               className="px-3 py-2 rounded-full bg-theme-secondary border border-theme-primary shadow-theme-primary flex items-center justify-center gap-2 transition-all duration-300 hover:scale-110 text-theme-primary"
-              aria-label="Toggle Theme"
+              aria-label={t("toggle_theme")}
               type="button"
             >
               <ThemeIcon />
@@ -192,7 +190,7 @@ const Header: React.FC = () => {
         <button
           className="md:hidden flex items-center justify-center p-2 rounded-full bg-theme-secondary border border-theme-primary shadow-theme-primary hover:scale-110 transition-all text-theme-primary"
           onClick={() => setMobileOpen((v) => !v)}
-          aria-label="Menü öffnen"
+          aria-label={t("open_menu")}
         >
           {mobileOpen ? (
             <X className="w-7 h-7" />
@@ -262,18 +260,24 @@ const Header: React.FC = () => {
                 }
               }}
             >
-              Contact Me <ArrowUpRight className="inline w-4 h-4 ml-1 -mt-1" />
+              {t("contact_me")}{" "}
+              <ArrowUpRight className="inline w-4 h-4 ml-1 -mt-1" />
             </a>
+
+            {/* Mobile Language Selector */}
+            <div className="mt-2">
+              <LanguageSelector />
+            </div>
 
             {/* Mobile Theme Switcher */}
             <button
               onClick={cycleTheme}
               className="mt-2 px-6 py-3 rounded-full bg-theme-secondary border border-theme-primary shadow-theme-primary flex items-center justify-center gap-2 transition-all duration-300 font-semibold text-theme-primary"
-              aria-label="Toggle Theme"
+              aria-label={t("toggle_theme")}
               type="button"
             >
               <ThemeIcon />
-              {getThemeLabel()} Mode
+              {getThemeLabel()} {t("theme.mode")}
             </button>
 
             <div className="flex gap-4 mt-4 justify-center">
