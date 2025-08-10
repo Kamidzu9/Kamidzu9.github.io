@@ -53,7 +53,7 @@ const entries: Entry[] = [
     highlights: ["Humanities Focus", "Language Skills", "Cultural Studies"],
     icon: <GraduationCap className="w-7 h-7" />,
     color: "from-orange-400 to-red-500",
-    awards: ["Academic Excellence"],
+    awards: ["School Excellence"],
   },
 ];
 
